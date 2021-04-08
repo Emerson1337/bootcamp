@@ -18,11 +18,13 @@ export default function EnsureAuthenticated(request: Request, response: Response
 
   const [, token] = authHeader.split(' ');
 
+  response.locals.tokenUser = token;
+
   try {
     const decoded = verify(token, authConfig.jwt.secret);
     const { sub } = decoded as TokenPayLoad;
     request.user = {
-      id: sub
+      id: sub,
     };
     return next();
   } catch (err) {
