@@ -4,6 +4,7 @@ import path from "path";
 import fs from 'fs';
 
 import uploadConfig from "../config/upload";
+import AppError from "../errors/AppErrors";
 
 interface Request {
   id_user: string,
@@ -20,7 +21,7 @@ class UpdateAvatarFileNameService {
     })
 
     if (!user) {
-      throw new Error('Only users authenticated can change avatar.');
+      throw new AppError('Only users authenticated can change avatar.', 401);
     }
 
     if (user.avatar) {

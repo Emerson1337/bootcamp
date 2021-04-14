@@ -4,22 +4,16 @@ import SessionService from "../services/SessionService";
 class SessionController {
 
   async createSession(request: Request, response: Response) {
-    try {
-      const { email, password } = request.body;
 
-      const sessionService = new SessionService();
+    const { email, password } = request.body;
 
-      const { user, token } = await sessionService.execute({ email, password });
+    const sessionService = new SessionService();
 
-      //delete user.password;
+    const { user, token } = await sessionService.execute({ email, password });
 
-      return response.json({ user, token });
-    } catch (err) {
+    //delete user.password;
 
-      return response.status(400).json({
-        error: err.message
-      });
-    }
+    return response.json({ user, token });
   }
 }
 
